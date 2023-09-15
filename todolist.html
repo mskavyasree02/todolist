@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <style>
+            * {
+  box-sizing: border-box;
+}
+
+ul {
+  margin: 1px;
+  padding: 2px;
+}
+
+ul li {
+  cursor: pointer;
+  position: relative;
+  padding: 20px 30px;
+  background: #ead0d0;
+  font-size: 20px;
+  
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+ul li:hover {
+  background: #dc8282;
+}
+
+ul li.checked {
+  background: #ece7e7;
+  color: #a55555;
+  text-decoration: line-through;
+}
+
+ul li.checked::before {
+  content: '';
+  position: absolute;
+  border-color: #c58484;
+  border-style: solid;
+  border-width: 0px 5px 5px 0;
+  top: 16px;
+  left: 10px;
+  transform: rotate(45deg);
+  height: 15px;
+  width: 7px;
+}
+
+.close {
+  position: absolute;
+  right: 0;
+  top: 0;
+  padding: 20px 20px 20px 20px;
+}
+
+.close:hover {
+  background-color: #a2534e;
+  color: white;
+}
+
+.header {
+  background-color: #671913a1;
+  padding: 30px 30px;
+  color: white;
+  text-align: center;
+}
+
+.header:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+input {
+  margin: 10;
+  border:none;
+  border-radius: 0;
+  width: 75%;
+  padding: 10px;
+  float: left;
+  font-size: 16px;
+}
+
+.addBtn {
+  padding: 10px;
+  width: 25%;
+  background: #d9d9d9;
+  color: #060606;
+  float: left;
+  font-family:Arial, Helvetica, sans-serif;
+  text-align: center;
+  font-size: 16px;
+  cursor: pointer;
+  transition: 0.4s;
+  border-radius: 0;
+}
+
+.addBtn:hover {
+  background-color: #ee9e9e;
+}
+    </style>
+    </head>
+
+<body>
+<div id="myDIV" class="header">
+    <h2>To Do List</h2>
+    <h2>Kavya Sree's</h2>
+    <input type="text" id="myInput" placeholder="Title...">
+    <span onclick="newElement()" class="addBtn">Add</span>
+  </div>
+  
+  <ul id="myUL">
+    <li>Introduction</li>
+    <li class="checked">HTML</li>
+    <li>CSS</li>
+    
+  </ul>
+  <script>
+    var myNodelist = document.getElementsByTagName("LI");
+var i;
+for (i = 0; i < myNodelist.length; i++) {
+  var span = document.createElement("SPAN");
+  var txt = document.createTextNode("\u00D7");
+  span.className = "close";
+  span.appendChild(txt);
+  myNodelist[i].appendChild(span);
+}
+
+var close = document.getElementsByClassName("close");
+var i;
+for (i = 0; i < close.length; i++) {
+  close[i].onclick = function() {
+    var div = this.parentElement;
+    div.style.display = "none";
+  }
+}
+var list = document.querySelector('ul');
+list.addEventListener('click', function(ev) {
+  if (ev.target.tagName === 'LI') {
+    ev.target.classList.toggle('checked');
+  }
+}, false);
+
+function newElement() {
+  var li = document.createElement("li");
+  var inputValue = document.getElementById("myInput").value;
+  var t = document.createTextNode(inputValue);
+  li.appendChild(t);
+  if (inputValue === '') {
+    alert("You must write something!");
+  } else {
+    document.getElementById("myUL").appendChild(li);
+  }
+  document.getElementById("myInput").value = "";
+
+  var span = document.createElement("SPAN");
+  var txt = document.createTextNode("\u00D7");
+  span.className = "close";
+  span.appendChild(txt);
+  li.appendChild(span);
+
+  for (i = 0; i < close.length; i++) {
+    close[i].onclick = function() {
+      var div = this.parentElement;
+      div.style.display = "none";
+    }
+  }
+}
+
+  </script>
+  </body>
+  </html>
